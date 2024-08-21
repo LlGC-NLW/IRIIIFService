@@ -28,7 +28,9 @@ public class Constants {
     public final static String FEDORA_FCR_METADATA = "/fcr:metadata";
     public final static String FEDORA_X_TURTLE_ACCEPT_TYPE = "application/x-turtle";
 
-    public final static String FEDORA_HAS_PARENT_PREDICATE = "http://fedora.info/definitions/v4/repository#hasParent";
+    //public final static String FEDORA_HAS_PARENT_PREDICATE = "http://fedora.info/definitions/v4/repository#hasParent";
+    public final static String FEDORA_HAS_PARENT_PREDICATE = "info:fedora/fedora-system:def/relations-external#isPartOf";
+    public final static String FEDORA_BINARY_PREDICATE = "http://fedora.info/definitions/v4/repository#Binary";
 
     // DSpace
     public final static String DSPACE_PREFIX = "http://digital-repositories.org/ontologies/dspace/0.1.0#";
@@ -102,7 +104,7 @@ public class Constants {
     public final static String IANA_PREVIOUS_PREDICATE = IANA_PREFIX + "previous";
 
     // ORE
-    public final static String ORE_PREFIX = "http://www.openarchives.org/ore/terms#";
+    public final static String ORE_PREFIX = "http://www.openarchives.org/ore/terms/";
 
     public final static String ORE_PROXY_FOR_PREDICATE = ORE_PREFIX + "proxyFor";
 

@@ -15,6 +15,7 @@ import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -169,7 +170,7 @@ public abstract class AbstractManifestService implements ManifestService {
         return createRdfModel(getRdf(url));
     }
 
-    private String getRdf(String url) throws NotFoundException {
+    protected String getRdf(String url) throws NotFoundException {
         try {
             url = URLDecoder.decode(url, StandardCharsets.UTF_8);
             if (logger.isDebugEnabled()) {
@@ -197,6 +198,7 @@ public abstract class AbstractManifestService implements ManifestService {
 
     protected OptionalImageWithInfo generateImage(ManifestRequest request, RdfResource rdfResource, String canvasId, int page) throws URISyntaxException, URISyntaxException {
         String url = rdfResource.getResource().getURI();
+        logger.debug("THIS URL " + url);
         OptionalImageResourceWithInfo imageResource = generateImageResource(request, rdfResource, page);
         if (imageResource.isPresent()) {
             Image image = new ImageImpl(getImageInfoUri(url));
@@ -219,7 +221,6 @@ public abstract class AbstractManifestService implements ManifestService {
             URI infoUri = getImageInfoUri(url);
 
             Optional<JsonNode> imageInfoNode = getImageInfo(infoUri.toString());
-
             if (imageInfoNode.isPresent()) {
                 ImageResource imageResource = new ImageResourceImpl(getImageFullUri(url));
 
@@ -492,6 +493,7 @@ public abstract class AbstractManifestService implements ManifestService {
     }
 
     protected Optional<JsonNode> getImageInfo(String url) {
+        logger.debug("INFO YO " + url);
         Optional<JsonNode> imageInfoNode = Optional.empty();
         try {
             imageInfoNode = Optional.of(objectMapper.readTree(fetchImageInfo(url)));
@@ -510,6 +512,7 @@ public abstract class AbstractManifestService implements ManifestService {
             return Optional.empty();
         }
     }
+
 
     private Metadata buildMetadata(String label, String value) {
         return new MetadataImpl(new PropertyValueSimpleImpl(label), new PropertyValueSimpleImpl(value));

@@ -15,9 +15,14 @@ import org.apache.http.ProtocolException;
 import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.protocol.HttpContext;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CustomRedirectStrategy extends DefaultRedirectStrategy {
 
     private final static UrlValidator urlValidator = new UrlValidator(new String[] { "http", "https" }, UrlValidator.ALLOW_LOCAL_URLS);
+
+    private final static Logger logger = LoggerFactory.getLogger(CustomRedirectStrategy.class);
 
     @Override
     public URI getLocationURI(HttpRequest request, HttpResponse response, HttpContext context) throws ProtocolException {
@@ -25,6 +30,7 @@ public class CustomRedirectStrategy extends DefaultRedirectStrategy {
             Optional<Header> locationHeader = Optional.ofNullable(response.getFirstHeader("location"));
             if (locationHeader.isPresent()) {
                 try {
+                    logger.debug(request.getRequestLine().getUri().toString());
                     URI origUri = new URI(request.getRequestLine().getUri());
                     String location = URLDecoder.decode(locationHeader.get().getValue().split("\\?")[0], "UTF-8");
                     if (urlValidator.isValid(location)) {

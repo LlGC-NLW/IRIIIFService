@@ -81,6 +81,7 @@ iiif:
     webapp: xmlui
     context-as-metadata: true
   fedora:
+    version: 6
     label-predicates:
     - "http://purl.org/dc/elements/1.1/title"
     - "http://purl.org/dc/terms/title"

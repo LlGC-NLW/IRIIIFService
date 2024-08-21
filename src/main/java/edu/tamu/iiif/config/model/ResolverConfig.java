@@ -51,7 +51,7 @@ public class ResolverConfig {
     }
 
     public static enum ResolverType {
-        REDIS, REMOTE
+        REDIS, REMOTE, SIMPLE
     }
 
 }
